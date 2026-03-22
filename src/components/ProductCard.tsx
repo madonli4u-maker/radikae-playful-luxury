@@ -2,6 +2,7 @@ import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { Product, useCart } from '@/contexts/CartContext';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   product: Product;
