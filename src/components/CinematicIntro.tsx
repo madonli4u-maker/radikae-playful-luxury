@@ -29,33 +29,28 @@ export default function CinematicIntro({ onComplete }: Props) {
       >
         {/* Photorealistic hero image with cinematic zoom */}
         <motion.div
-          className="absolute inset-0"
-          initial={{ scale: 1.15, opacity: 0 }}
+          className="absolute inset-0 flex items-center justify-center"
+          initial={{ scale: 1.1, opacity: 0 }}
           animate={{
-            scale: phase >= 1 ? [1.15, 1.0] : 1.15,
+            scale: phase >= 1 ? [1.1, 1.0] : 1.1,
             opacity: phase >= 1 ? 1 : 0,
           }}
           transition={{ duration: 4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <img
-            src={cinematicHero}
-            alt="Lotus, golden flute, and peacock feather"
-            className="w-full h-full object-cover"
-          />
-          {/* Cinematic vignette */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(ellipse at center, transparent 30%, rgba(10,3,5,0.6) 70%, rgba(10,3,5,0.95) 100%)',
-            }}
-          />
-          {/* Bottom fade for logo area */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to top, rgba(10,3,5,0.9) 0%, rgba(10,3,5,0.3) 35%, transparent 60%)',
-            }}
-          />
+          <div className="relative w-[55vmin] h-[55vmin] max-w-[420px] max-h-[420px] rounded-full overflow-hidden shadow-2xl">
+            <img
+              src={cinematicHero}
+              alt="Lotus, golden flute, and peacock feather"
+              className="w-full h-full object-cover"
+            />
+            {/* Soft vignette on the image */}
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                boxShadow: 'inset 0 0 60px 30px rgba(10,3,5,0.5)',
+              }}
+            />
+          </div>
         </motion.div>
 
         {/* Golden ambient light sweep */}
