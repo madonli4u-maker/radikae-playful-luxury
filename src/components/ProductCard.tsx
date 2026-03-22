@@ -2,6 +2,7 @@ import { Heart, ShoppingCart, Star } from 'lucide-react';
 import { Product, useCart } from '@/contexts/CartContext';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   product: Product;
@@ -46,28 +47,32 @@ export default function ProductCard({ product, variant = 'toy' }: Props) {
       )}
 
       <button
-        onClick={() => toggleWishlist(product)}
+        onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
         className="absolute top-3 right-3 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background transition-colors"
       >
         <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? 'fill-secondary text-secondary' : 'text-muted-foreground'}`} />
       </button>
 
-      <div className={`aspect-square overflow-hidden ${isJewelry ? 'rounded-t-xl' : 'rounded-t-2xl'}`}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {isJewelry && (
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-        )}
-      </div>
+      <Link to={`/product/${product.id}`}>
+        <div className={`aspect-square overflow-hidden ${isJewelry ? 'rounded-t-xl' : 'rounded-t-2xl'}`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          {isJewelry && (
+            <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          )}
+        </div>
+      </Link>
 
       <div className="p-4">
         <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{product.subcategory}</p>
-        <h3 className={`font-semibold mb-2 line-clamp-1 ${isJewelry ? 'font-serif text-base' : 'text-sm'}`}>
-          {product.name}
-        </h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className={`font-semibold mb-2 line-clamp-1 hover:underline ${isJewelry ? 'font-serif text-base' : 'text-sm'}`}>
+            {product.name}
+          </h3>
+        </Link>
         <div className="flex items-center gap-1 mb-2">
           {Array.from({ length: 5 }).map((_, i) => (
             <Star key={i} className={`w-3 h-3 ${i < product.rating ? 'fill-primary text-primary' : 'text-muted'}`} />
@@ -86,7 +91,7 @@ export default function ProductCard({ product, variant = 'toy' }: Props) {
             )}
           </div>
           <button
-            onClick={() => addToCart(product)}
+            onClick={(e) => { e.preventDefault(); addToCart(product); }}
             className={`p-2 rounded-lg transition-colors ${
               isJewelry
                 ? 'bg-primary/10 hover:bg-primary/20 text-primary'
