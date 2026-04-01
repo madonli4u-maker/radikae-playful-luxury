@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
@@ -16,6 +17,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import SellerProfile from "./pages/SellerProfile";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminLogin from "./pages/AdminLogin";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 
@@ -24,29 +26,32 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/toys" element={<Toys />} />
-              <Route path="/jewelry" element={<Jewelry />} />
-              <Route path="/best-sellers" element={<BestSellers />} />
-              <Route path="/offers" element={<Offers />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/seller" element={<SellerProfile />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </TooltipProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/toys" element={<Toys />} />
+                <Route path="/jewelry" element={<Jewelry />} />
+                <Route path="/best-sellers" element={<BestSellers />} />
+                <Route path="/offers" element={<Offers />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/seller" element={<SellerProfile />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </TooltipProvider>
+        </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );
